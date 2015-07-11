@@ -57,7 +57,7 @@ var Boat = {
 				
 			});
 		}
-		console.log(formData)
+		// console.log(formData)
 	}
 };
 var Dom = {
