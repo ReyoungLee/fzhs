@@ -1,0 +1,94 @@
+html,body{ height: 100%; width: 100%; margin: 0; }
+body{ /*background: url(http://portal.51fzhs.com/wp-content/uploads/2015/04/bg1.jpg) center;*/background: url(/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
+body, button, select{ font-family: microsoft yahei;}
+#logo{ width: 300px; height: 90px; background: url(/img/logo.png) no-repeat; position: fixed; left: 50%; margin-left: -690px; z-index: 4;}
+#bdtop{ width: 100%; height: 6px; position: fixed; background: #2d64ae; z-index: 4;}
+#nav{ position: fixed; height: 100%; width: 40px; top: 0; left: 50%; margin-left: -565px; border-right: 6px #2d64ae solid; z-index: 3;}
+#nav>div{ height: 32px; margin: 20px 0; font-size: 16px; white-space: nowrap; background: #2d64ae; color: #fff; text-shadow:0 0 14px #000; position: relative; transition: .1s ease-out; cursor: pointer;}
+#nav>.crt{ text-shadow:0 0 14px #fff; font-size: 18px; }
+#nav span{ line-height: 30px; padding-left: 14px; position: absolute; z-index: 3; -webkit-user-select: none;}
+#nav a{ color: inherit;}
+#nav .tri{ width: 0; height: 0; position: absolute; top: 0; left: 100%; border-width: 16px; border-style: solid; border-color: transparent transparent transparent #2d64ae; }
+
+.main{ width: 970px; margin-left: -520px; padding: 0 90px; min-height: 100%; display: none; background: rgba(255,255,255,.4); position: absolute; left: 50%; transition: top .2s ease-in; font-size: 15px;}
+#home{ display: block; }
+
+#searchbar{  margin-top: 80px; position: relative;}
+#searchbar label{ margin-left: 20px; display: inline-block; width: 198px; height: 40px; line-height: 40px; white-space: nowrap;}
+#searchbar label:nth-child(1),#searchbar label:nth-child(5){ margin-left: 50px}
+#searchbar input,
+#searchbar select{ border: none; margin: 10px; height: 24px; outline: none; background: none; box-shadow: 0 0 2px #045 inset; transition: box-shadow .3s; position: relative; top: -1px;}
+#searchbar input{ padding: 0 5px; width: 120px; }
+#searchbar select{ width: 130px; padding-left: 4px;}
+#searchbar button{ width: 130px; height: 24px; border-radius: 3px; font-size: 15px; box-shadow: 0 0 2px #045 inset; color: #267; bottom: 17px; right: 68px; text-align: center; cursor: pointer; border: none; background: none; outline: none; position: absolute; transition: background 0.2s}
+#searchbar button:hover{ background: #416fa8; color:#fff;}
+#searchbar,#result{ width: 100%; background: rgba(255,255,255,.3); padding: 10px 0;}
+#result{ margin: 40px 0; list-style: none; font-size: 0}
+#result span{ display: inline-block; text-align: center; line-height: 36px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+#result .ord{ width: 7%;}
+#result .name{ width: 11%;}
+#result .higscl{ width: 13%;}
+#result .grad{ width: 6%;}
+#result .class{ width: 8%;}
+#result .maj{ width: 18%;}
+#result .colge{ width: 20%;}
+#result .diploma{ width: 6%;}
+#result .touch{ width: 11%; cursor: pointer; text-decoration: underline;}
+#result li{ transition: background .2s;}
+#result li:nth-child(even){ background: rgba(255,255,255,.4)}
+#result li:hover{ background: rgba(45,100,174,.6); color: #fff}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#nav>div:nth-child(6){
+			transform: perspective(100px) rotateY(-15deg) rotate(13deg);
+	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(13deg);
+	width: 260%;}
+#nav>div:nth-child(6):hover{
+			transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1);
+	-webkit-transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1);}
+#nav>div:nth-child(5){
+			transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px);
+	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px); width: 170%;}
+#nav>div:nth-child(5):hover{
+			transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1);
+	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1);}
+#nav>div:nth-child(4){
+			transform: perspective(100px) rotateY(10deg) rotate(-2deg);
+	-webkit-transform: perspective(100px) rotateY(10deg) rotate(-2deg); width: 200%;}
+#nav>div:nth-child(4):hover{ transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1);
+					 -webkit-transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1);}
+#nav>div:nth-child(3){ 
+			transform: perspective(100px) rotateY(-10deg); width: 300%;
+	-webkit-transform: perspective(100px) rotateY(-10deg); width: 300%; margin-left: -10px;}
+#nav>div:nth-child(3):hover{
+			transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1);
+	-webkit-transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1);}
+#nav>div:nth-child(2){
+			transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px);
+	-webkit-transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px); width: 220%;}
+#nav>div:nth-child(2):hover{
+			transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1);
+	-webkit-transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1);}
+#nav>div:nth-child(1){
+			transform: perspective(100px) rotateY(10deg) rotate(4deg); width: 190%;
+	-webkit-transform: perspective(100px) rotateY(10deg) rotate(4deg); width: 190%; margin-top: 100px}
+#nav>div:nth-child(1):hover{
+			transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1);
+	-webkit-transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1);}
