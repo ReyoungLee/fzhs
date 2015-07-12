@@ -8,7 +8,7 @@ $(function(){
 });
 
 var Boat = {
-	currentNav: 0,
+	schTimeOut: true,// a client can not post search requests too frequently
 	bindEvent: function(){
 		Dom.navBtn.click(Boat.changeUrl);
 		Dom.schBtn.click(Boat.doSearch);
@@ -31,33 +31,51 @@ var Boat = {
 		var url = {
 			high : '/Home/Query/allhighschools'
 		};
+		var grad ='', year = new Date().getFullYear();
 		$.get(url.high).done(function(back){
-			var html;
-			if(back){
-				html = Hogan.compile(Dom.m_high).render({list:back});
-			}else{
-				html = '<option value="-1">获取数据失败</option>';
-			}
+			back = back?back:false;
+			var html = Mustache.to_html(Dom.m_high,{list:back});
 			Dom.highSlct.append(html);
 		});
-		Dom.dlpmSlct.append(Dom.h_dplm);
+		for(year; year > 1945; year--){
+			grad += '<option value="'+year+'">'+year+'</option>';
+		}
+		Dom.gradSlct.append(grad);
+		Dom.dgreSclt.append(Dom.h_dgre);
 	},
 	doSearch: function(){
 		var url = '/Home/Search/specific';
 		var arr = Dom.schFrm.serializeArray();
-		var formData = {} , hasVal = false;
+		var form = {};
 		for(var i = arr.length;i--;){
-			if(arr[i].value && arr[i].value != -1){
-				formData[arr[i].name] = arr[i].value;
-				hasVal = true;
+			var v = arr[i].value.replace(/\s+/g,'');
+			if(v && v != -1){
+				form[arr[i].name] = v;
 			}
 		}
-		if(hasVal){
-			$.post(url,formData).done(function(back){
-				
+		if(Boat.schTimeOut && Boat.checkForm(form)){
+			$.post(url,form).done(function(back){
+				back = back?back:false;
+				var html = Mustache.to_html(Dom.m_guys,{list:back});
+				Dom.guys.html(html);
 			});
+			Boat.schTimeOut = false;
+			setTimeout(function(){
+				Boat.schTimeOut = true;
+			},1000);
 		}
-		// console.log(formData)
+	},
+	checkForm: function(f){
+		if(f.name || f.major || f.college){
+			return true;
+		}else{
+			Dom.schTip.addClass('notice');
+			Dom.schBtn.text('请检查输入');
+			setTimeout(function(){
+				Dom.schTip.removeClass('notice');
+				Dom.schBtn.text('搜　索');
+			},600);
+		}
 	}
 };
 var Dom = {
@@ -65,23 +83,31 @@ var Dom = {
 	nav: $('#nav>div'),
 	navBtn: $('#nav>div:not(.link)'),
 	schBtn: $('#searchbar button'),
+	schTip: $('#searchbar span'),
 	schFrm: $('#searchbar form'),
-	highSlct: $('#searchbar select[name=high]'),
-	m_high: '{{#list}}<option value="{{id}}">{{name}}</option>{{/list}}',
-	dlpmSlct: $('#searchbar select[name=diploma]'),
-	h_dplm:'<option value="3">专科</option>\
+	schNull: '<div style="text-align:center;"><span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span></div>',
+	highSlct: $('#searchbar select[name=highschool]'),
+	dgreSclt: $('#searchbar select[name=degree]'),
+	gradSlct: $('#searchbar select[name=graduation]'),
+	guys: $('#result'),
+	m_high:'{{#list}}<option value="{{id}}">{{name}}</option>{{/list}}\
+			{{^list}}<option value="-1">获取数据失败</option>{{/list}}',
+	h_dgre:'<option value="3">专科</option>\
 			<option value="0">本科</option>\
 			<option value="1">硕士</option>\
 			<option value="2">博士</option>\
 			<option value="4">其他</option>',
-	m_result:'{{#list}}<li id="{{}}">\
-			<span class="ord">{{1}}</span>\
-			<span class="name">{{泛舟湖上}}</span>\
-			<span class="higscl">{{野寨中学}}</span>\
-			<span class="grad">{{11届}}</span>\
-			<span class="class">{{理复11班}}</span>\
-			<span class="maj">{{通信工程}}</span>\
-			<span class="colge">{{上海大学}}</span>\
-			<span class="diploma">{{本科}}</span>\
-			<span class="touch">联系ta</span></li>{{/list}}'
+	m_guys:'{{#list}}<li id="{{id}}">\
+			<span class="ord">{{order}}</span>\
+			<span class="name">{{name}}</span>\
+			<span class="higscl">{{high}}</span>\
+			<span class="grad">{{grad}}届</span>\
+			<span class="class">{{class}}班</span>\
+			<span class="maj">{{maj}}</span>\
+			<span class="colge">{{college}}</span>\
+			<span class="degree">{{degree}}</span>\
+			<span class="touch">联系ta</span></li>{{/list}}\
+			{{^list}}<div style="text-align:center;">\
+			<span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span>\
+			</div>{{/list}}'
 };

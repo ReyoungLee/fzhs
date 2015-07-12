@@ -1,4 +1,4 @@
 module.exports = {
-		/Admin/Query/allhighschools/ : "data/high.json",
-		/Admin/Search/specific/ : ""
+		/Home/Query/allhighschools/ : "data/high.json",
+		/Home/Search/specific/ : "data/guys.json"
 }
