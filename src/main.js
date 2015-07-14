@@ -15,8 +15,8 @@ var Boat = {
 		window.onhashchange = Boat.navByUrl;
 	},
 	changeUrl: function(){
-		var lct = window.location;
-		lct.href = lct.pathname + '#' + $(this).index();
+		var lc = window.location;
+		lc.href = lc.pathname + '#' + $(this).index();
 	},
 	navByUrl: function(){
 		var nav = window.location.hash.substring(1,2) ;
@@ -38,32 +38,39 @@ var Boat = {
 			Dom.highSlct.append(html);
 		});
 		for(year; year > 1945; year--){
-			grad += '<option value="'+year+'">'+year+'</option>';
+			grad += '<option>'+year+'</option>';
 		}
 		Dom.gradSlct.append(grad);
 		Dom.dgreSclt.append(Dom.h_dgre);
 	},
 	doSearch: function(){
 		var url = '/Home/Search/specific';
-		var arr = Dom.schFrm.serializeArray();
+		var lc = window.location , iq = lc.href.indexOf('?');
+		var arr = Dom.schFrm.serializeArray(), str = '?';
 		var form = {};
 		for(var i = arr.length;i--;){
 			var v = arr[i].value.replace(/\s+/g,'');
-			if(v && v != -1){
+			if(v){
 				form[arr[i].name] = v;
+				str += arr[i].name + '=' + v + '&';
 			}
 		}
-		if(Boat.schTimeOut && Boat.checkForm(form)){
-			$.post(url,form).done(function(back){
-				back = back?back:false;
-				var html = Mustache.to_html(Dom.m_guys,{list:back});
-				Dom.guys.html(html);
-			});
-			Boat.schTimeOut = false;
-			setTimeout(function(){
-				Boat.schTimeOut = true;
-			},1000);
+		if(!Boat.schTimeOut || !Boat.checkForm(form)){
+			return;
 		}
+		$.post(url,form).done(function(back){
+			back = back?back:false;
+			var html = Mustache.to_html(Dom.m_guys,{list:back});
+			Dom.guys.html(html);
+		});
+		if(iq != -1){
+			lc.href = lc.href.substring(0,iq);
+		}
+		lc.href += str;
+		Boat.schTimeOut = false;
+		setTimeout(function(){
+			Boat.schTimeOut = true;
+		},1000);
 	},
 	checkForm: function(f){
 		if(f.name || f.major || f.college){
@@ -91,7 +98,7 @@ var Dom = {
 	gradSlct: $('#searchbar select[name=graduation]'),
 	guys: $('#result'),
 	m_high:'{{#list}}<option value="{{id}}">{{name}}</option>{{/list}}\
-			{{^list}}<option value="-1">获取数据失败</option>{{/list}}',
+			{{^list}}<option>获取数据失败</option>{{/list}}',
 	h_dgre:'<option value="3">专科</option>\
 			<option value="0">本科</option>\
 			<option value="1">硕士</option>\
