@@ -2,30 +2,50 @@ require('jquery');
 require('TravelHogan');
 
 $(function(){
-	if(window.location.hash.substring(1,2)*1)Boat.navByUrl();
+	if(window.location.hash.slice(1,2)*1)Boat.navByUrl();
 	Boat.preData();
 	Boat.bindEvent();
 });
 
 var Boat = {
 	schTimeOut: true,// a client can not post search requests too frequently
+	lc: window.location,
 	bindEvent: function(){
-		Dom.navBtn.click(Boat.changeUrl);
 		Dom.schBtn.click(Boat.doSearch);
 		window.onhashchange = Boat.navByUrl;
 	},
-	changeUrl: function(){
-		var lc = window.location;
-		lc.href = lc.pathname + '#' + $(this).index();
-	},
 	navByUrl: function(){
-		var nav = window.location.hash.substring(1,2) ;
+		var nav = Boat.lc.hash.slice(1,2) ;
 		var _this = Dom.nav.eq(nav);
 		var $target = Dom.main.eq(nav);
 		var $others = Dom.main.not($target);
 		_this.addClass('crt').siblings().removeClass('crt');
 		$others.fadeOut(800);
 		$target.css('top','-100%').show(0).css('top','0');
+	},
+	analysePara: function(){
+		var para = Boat.lc.hash.slice(3),
+			nav = Boat.lc.hash.slice(1,2);
+		if(nav != 1 || !para){
+			return;
+		}
+		var arr = para.split('&'),form = {};
+		var temp;
+		for(var i = arr.length; i--;){
+			temp = arr[i].split('=');
+			form[temp[0]] = temp[1];
+		}
+		Dom.schInpt.each(function(){
+			$(this).val(form[this.name]);
+		});
+		Dom.schSlct.each(function(){
+			var name = form[this.name];
+			if(!name){
+				return;
+			}
+			$(this).find('option[value='+name+']').attr('selected',true);
+		});
+		Boat.doSearch();
 	},
 	preData: function(){
 		var url = {
@@ -36,16 +56,17 @@ var Boat = {
 			back = back?back:false;
 			var html = Mustache.to_html(Dom.m_high,{list:back});
 			Dom.highSlct.append(html);
+			Boat.analysePara();
 		});
 		for(year; year > 1945; year--){
-			grad += '<option>'+year+'</option>';
+			grad += '<option value ='+year+'>'+year+'</option>';
 		}
 		Dom.gradSlct.append(grad);
 		Dom.dgreSclt.append(Dom.h_dgre);
 	},
 	doSearch: function(){
 		var url = '/Home/Search/specific';
-		var lc = window.location , iq = lc.href.indexOf('?');
+		var iq = Boat.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';
 		var form = {};
 		for(var i = arr.length;i--;){
@@ -64,9 +85,9 @@ var Boat = {
 			Dom.guys.html(html);
 		});
 		if(iq != -1){
-			lc.href = lc.href.substring(0,iq);
+			Boat.lc.href = Boat.lc.href.slice(0,iq);
 		}
-		lc.href += str;
+		Boat.lc.href += str.slice(0,-1);
 		Boat.schTimeOut = false;
 		setTimeout(function(){
 			Boat.schTimeOut = true;
@@ -88,10 +109,11 @@ var Boat = {
 var Dom = {
 	main: $('.main'),
 	nav: $('#nav>div'),
-	navBtn: $('#nav>div:not(.link)'),
 	schBtn: $('#searchbar button'),
 	schTip: $('#searchbar span'),
 	schFrm: $('#searchbar form'),
+	schSlct: $('#searchbar select'),
+	schInpt: $('#searchbar input'),
 	schNull: '<div style="text-align:center;"><span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span></div>',
 	highSlct: $('#searchbar select[name=highschool]'),
 	dgreSclt: $('#searchbar select[name=degree]'),
@@ -118,3 +140,4 @@ var Dom = {
 			<span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span>\
 			</div>{{/list}}'
 };
+window.Dom = Dom
