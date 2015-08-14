@@ -8,7 +8,7 @@ $(function(){
 });
 window.CH = window.navigator.userAgent.indexOf('Chrome') > -1;
 var Boat = {
-	schTimeOut: true,	// a client can not post search requests too frequently
+	schTimeOut: true,// a client can not post search requests too frequently
 	lc: window.location,
 	bindEvent: function(){
 		window.onhashchange = Boat.navByUrl;
