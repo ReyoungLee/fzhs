@@ -1,15 +1,19 @@
-html,body{ height: 100%; width: 100%; margin: 0; }
-body{ /*background: url(http://portal.51fzhs.com/wp-content/uploads/2015/04/bg1.jpg) center;*/background: url(/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
-body, button, select, input{ font-family: microsoft yahei;}
-#logo{ width: 300px; height: 90px; background: url(/img/logo.png) no-repeat; position: fixed; left: 50%; margin-left: -688px; z-index: 4;}
+html,body{ height: 100%; width: 100%; margin: 0;  }
+body{ /*background: url(http://portal.51fzhs.com/wp-content/uploads/2015/04/bg1.jpg) center;*/ background: url(/fz/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
+body, button, select, input, textarea{ font-family: microsoft yahei;}
+input, select, textarea{ box-shadow: 0 0 2px #045 inset;}
+button{width: 130px; height: 24px; font-size: 15px; border-radius: 3px; box-shadow: 0 0 2px #023 inset; color: #245; text-align: center; cursor: pointer; border: none; background: none; outline: none; position: absolute; transition: background 0.2s}
+button:hover{ background: #416fa8; color:#fff;}
+#logo{ width: 300px; height: 90px; background: url(/fz/img/logo.png) no-repeat; position: fixed; left: 50%; margin-left: -688px; z-index: 4;}
 #bdtop{ width: 100%; height: 6px; position: fixed; background: #2d64ae; z-index: 4;}
 #nav{ position: fixed; height: 100%; width: 40px; top: 0; left: 50%; margin-left: -565px; border-right: 6px #2d64ae solid; z-index: 3;}
 #nav>div{ height: 32px; margin: 20px 0; font-size: 16px; white-space: nowrap; background: #2d64ae; color: #fff; text-shadow:0 0 14px #000; position: relative; transition: .1s ease-out; cursor: pointer;}
 #nav>.crt{ text-shadow:0 0 10px #fff; font-size: 18px; }
 #nav a{ line-height: 30px; padding: 0 12px; position: absolute; z-index: 3; -webkit-user-select: none; color: inherit; text-decoration: none}
 #nav .tri{ width: 0; height: 0; position: absolute; top: 0; left: 100%; border-width: 16px; border-style: solid; border-color: transparent transparent transparent #2d64ae; }
+.blur{ -webkit-filter: blur(4px); }
 
-.main{ width: 970px; margin-left: -520px; padding: 0 50px 0 100px; min-height: 100%; display: none; background: rgba(255,255,255,.4); position: absolute; left: 50%; transition: top .2s ease-in; font-size: 15px;}
+.main{ width: 970px; margin-left: -520px; padding: 0 50px 0 100px; min-height: 100%; display: none; background: rgba(255,255,255,.4); position: absolute; left: 50%; transition: top .2s cubic-bezier(0.12, 0.55, 0.56, 1); font-size: 15px;}
 #home{ display: block; background: none;}
 
 #searchbar{  margin-top: 80px; position: relative; padding: 10px 0;}
@@ -19,11 +23,10 @@ body, button, select, input{ font-family: microsoft yahei;}
 #searchbar label{ margin-left: 20px; display: inline-block; width: 198px; height: 40px; line-height: 40px; white-space: nowrap;}
 #searchbar label:nth-child(1),#searchbar label:nth-child(5){ margin-left: 50px}
 #searchbar input,
-#searchbar select{ border: none; margin: 10px; height: 24px; outline: none; background: none; box-shadow: 0 0 2px #045 inset; transition: box-shadow .3s; position: relative; top: -1px;}
+#searchbar select{ border: none; margin: 10px; height: 24px; outline: none; background: none; position: relative; top: -1px;}
 #searchbar input{ padding: 0 5px; width: 120px; }
 #searchbar select{ width: 130px; padding-left: 4px;}
-#searchbar button{ width: 130px; height: 24px; font-size: 15px; border-radius: 3px; box-shadow: 0 0 2px #023 inset; color: #267; bottom: 17px; right: 68px; text-align: center; cursor: pointer; border: none; background: none; outline: none; position: absolute; transition: background 0.2s}
-#searchbar button:hover{ background: #416fa8; color:#fff;}
+#searchbar button{ bottom: 17px; right: 68px; }
 #searchbar,#result{ width: 100%; background: rgba(255,255,255,.3);}
 #result{ margin: 40px 0; list-style: none; font-size: 0; padding: 0}
 #result span{ display: inline-block; text-align: center; line-height: 36px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
@@ -35,13 +38,19 @@ body, button, select, input{ font-family: microsoft yahei;}
 #result .maj{ width: 18%;}
 #result .colge{ width: 20%;}
 #result .degree{ width: 6%;}
-#result .touch{ width: 13%; cursor: pointer; text-decoration: underline;}
+#result .contact{ width: 13%; cursor: pointer; text-decoration: underline;}
 #result li{ transition: background .2s;}
 #result li:nth-child(even){ background: rgba(255,255,255,.4)}
 #result li:hover{ background: rgba(45,100,174,.6); color: #fff}
 
-
-
+#dlg{ width: 400px; height: 200px; left: 50%; margin-left: -180px; z-index: 9; background: rgba(244,244,255,.4); box-shadow: 0 0 10px #444;  border-radius: 5px; position: absolute; transition: top ease-out .15s;}
+#dlg h4{ margin: 10px; font-weight: 100}
+#dlg textarea{ width: 340px; height: 80px; padding: 10px; margin: 0 20px; resize: none; border: none; outline: none; background: rgba(255,255,255,.4);}
+#dlg textarea::-webkit-input-placeholder{ color: #777; font-size: 14px;}
+#dlg button{ bottom: 20px; right: 20px; box-shadow: 0 0 2px #000 inset; }
+#dlg .y{ right: 170px;}
+#dlg-mask{ width: 100%; height: 100%; position: fixed; z-index: 8; background: rgba(0,0,0,.3)}
+.dlg-pls{ background: rgba(244,244,255,.7)!important;}
 
 
 

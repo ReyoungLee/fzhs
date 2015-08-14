@@ -2,17 +2,19 @@ require('jquery');
 require('TravelHogan');
 
 $(function(){
-	if(window.location.hash.slice(1,2)*1)Boat.navByUrl();
+	(window.location.hash.slice(1,2)*1) && Boat.navByUrl();
 	Boat.preData();
 	Boat.bindEvent();
 });
-
+window.CH = window.navigator.userAgent.indexOf('Chrome') > -1;
 var Boat = {
-	schTimeOut: true,// a client can not post search requests too frequently
+	schTimeOut: true,	// a client can not post search requests too frequently
 	lc: window.location,
 	bindEvent: function(){
-		Dom.schBtn.click(Boat.doSearch);
 		window.onhashchange = Boat.navByUrl;
+		Dom.schBtn.click(Boat.doSearch);
+		Dom.guys.on('click','.contact',Dlg.show);
+		Dom.bd.on('click','#dlg .n',Dlg.hide).on('click','#dlg .y',Boat.gouda);
 	},
 	navByUrl: function(){
 		var nav = Boat.lc.hash.slice(1,2) ;
@@ -20,7 +22,7 @@ var Boat = {
 		var $target = Dom.main.eq(nav);
 		var $others = Dom.main.not($target);
 		_this.addClass('crt').siblings().removeClass('crt');
-		$others.fadeOut(800);
+		$others.fadeOut(700);
 		$target.css('top','-100%').show(0).css('top','0');
 	},
 	analysePara: function(){
@@ -64,6 +66,18 @@ var Boat = {
 		Dom.gradSlct.append(grad);
 		Dom.dgreSclt.append(Dom.h_dgre);
 	},
+	checkForm: function(f){
+		if(f.name || f.major || f.college){
+			return true;
+		}else{
+			Dom.schTip.addClass('notice');
+			Dom.schBtn.text('请检查输入');
+			setTimeout(function(){
+				Dom.schTip.removeClass('notice');
+				Dom.schBtn.text('搜　索');
+			},600);
+		}
+	},
 	doSearch: function(){
 		var url = '/Home/Search/specific';
 		var iq = Boat.lc.href.indexOf('?');
@@ -93,28 +107,60 @@ var Boat = {
 			Boat.schTimeOut = true;
 		},1000);
 	},
-	checkForm: function(f){
-		if(f.name || f.major || f.college){
-			return true;
-		}else{
-			Dom.schTip.addClass('notice');
-			Dom.schBtn.text('请检查输入');
-			setTimeout(function(){
-				Dom.schTip.removeClass('notice');
-				Dom.schBtn.text('搜　索');
-			},600);
-		}
+	gouda: function(){
+
+	}
+	
+};
+
+var Dlg = {
+	exist: false,
+	wdw: $('<div id="dlg" style="top:-200px"></div>'),
+	msk: $('<div id="dlg-mask" style="display:none"></div>'),
+	nm: undefined, 
+	uid: undefined,
+	show: function(){
+		Dlg.exist || Dlg.build();
+		Dlg.nm.html($(this).data('name'));
+		Dlg.uid.attr('data-uid',$(this).data('uid'));
+		Dlg.msk.fadeIn(200);
+		Dom.blur.addClass('blur');
+		setTimeout(function(){
+			Dlg.wdw.css('top','200px');
+		},1);
+	},
+	hide: function(){
+		Dlg.wdw.css('top','-400px');
+		Dlg.msk.fadeOut(200);
+		Dom.blur.removeClass('blur');
+	},
+	build: function(){
+		var cont = $('<h4>发送消息给 <span></span></h4>\
+					<textarea placeholder="请留下自己的联系方式"></textarea>\
+					<button class="y">勾搭Ta</button>\
+					<button class="n">算了</button>');
+		Dlg.msk.click(Dlg.hide);
+		window.CH || Dlg.wdw.addClass('dlg-pls');
+		Dlg.wdw.append(cont);
+		Dom.bd.append(Dlg.wdw,Dlg.msk);
+		Dlg.nm = Dlg.wdw.find('span');
+		Dlg.uid = Dlg.wdw.find('.y');
+		Dlg.exist = true;
 	}
 };
+
 var Dom = {
+	bd: $('body'),
 	main: $('.main'),
 	nav: $('#nav>div'),
+	blur: $('.main,#nav,#logo'),
 	schBtn: $('#searchbar button'),
 	schTip: $('#searchbar span'),
 	schFrm: $('#searchbar form'),
 	schSlct: $('#searchbar select'),
 	schInpt: $('#searchbar input'),
-	schNull: '<div style="text-align:center;"><span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span></div>',
+	schNull: '<div style="text-align:center;"><span style="font-size:20px;color:#777">\
+			没找到 ╮(╯▽╰)╭</span></div>',
 	highSlct: $('#searchbar select[name=highschool]'),
 	dgreSclt: $('#searchbar select[name=degree]'),
 	gradSlct: $('#searchbar select[name=graduation]'),
@@ -135,9 +181,8 @@ var Dom = {
 			<span class="maj">{{maj}}</span>\
 			<span class="colge">{{college}}</span>\
 			<span class="degree">{{degree}}</span>\
-			<span class="touch">联系ta</span></li>{{/list}}\
+			<span class="contact" data-name="{{name}}" data-uid="{{id}}">联系Ta</span></li>{{/list}}\
 			{{^list}}<div style="text-align:center;">\
 			<span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span>\
 			</div>{{/list}}'
 };
-window.Dom = Dom
