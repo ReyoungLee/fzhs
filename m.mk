@@ -1,4 +1,4 @@
 module.exports = {
-		/Home/Query/allhighschools/ : "data/high.json",
-		/Home/Search/specific/ : "data/guys.json"
+		/home/query/allhighschools/ : "http://contacts.51fzhs.com/home/query/allHighSchools",
+		/home/search/specific/ : "http://contacts.51fzhs.com//home/search/specific"
 }

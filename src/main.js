@@ -8,6 +8,7 @@ $(function(){
 });
 window.CH = window.navigator.userAgent.indexOf('Chrome') > -1;
 var Boat = {
+
 	schTimeOut: true,// a client can not post search requests too frequently
 	lc: window.location,
 	bindEvent: function(){
@@ -17,7 +18,7 @@ var Boat = {
 		Dom.bd.on('click','#dlg .n',Dlg.hide).on('click','#dlg .y',Boat.gouda);
 	},
 	navByUrl: function(){
-		var nav = Boat.lc.hash.slice(1,2) ;
+		var nav = Boat.lc.hash.slice(1,2);
 		var _this = Dom.nav.eq(nav);
 		var $target = Dom.main.eq(nav);
 		var $others = Dom.main.not($target);
@@ -51,7 +52,7 @@ var Boat = {
 	},
 	preData: function(){
 		var url = {
-			high : '/Home/Query/allhighschools'
+			high : '/home/query/allhighschools'
 		};
 		var grad ='', year = new Date().getFullYear();
 		$.get(url.high).done(function(back){
@@ -79,7 +80,7 @@ var Boat = {
 		}
 	},
 	doSearch: function(){
-		var url = '/Home/Search/specific';
+		var url = '/home/search/specific',href;
 		var iq = Boat.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';
 		var form = {};
@@ -99,16 +100,20 @@ var Boat = {
 			Dom.guys.html(html);
 		});
 		if(iq != -1){
-			Boat.lc.href = Boat.lc.href.slice(0,iq);
+			href = Boat.lc.href.slice(0,iq);
 		}
-		Boat.lc.href += str.slice(0,-1);
+		href += str.slice(0,-1);
+		Boat.lc.href = href;
 		Boat.schTimeOut = false;
 		setTimeout(function(){
 			Boat.schTimeOut = true;
 		},1000);
 	},
 	gouda: function(){
+		var arg = {};
+		$.post('/home/gouda/send',arg).done(function (data){
 
+		});
 	}
 	
 };
