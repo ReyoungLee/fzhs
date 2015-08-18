@@ -80,7 +80,7 @@ var Boat = {
 		}
 	},
 	doSearch: function(){
-		var url = '/home/search/specific',href;
+		var url = '/home/search/specific';
 		var iq = Boat.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';
 		var form = {};
@@ -99,11 +99,10 @@ var Boat = {
 			var html = Mustache.to_html(Dom.m_guys,{list:back});
 			Dom.guys.html(html);
 		});
-		if(iq != -1){
-			href = Boat.lc.href.slice(0,iq);
-		}
-		href += str.slice(0,-1);
-		Boat.lc.href = href;
+
+		iq == -1 && (iq = Boat.lc.href.length);
+
+		Boat.lc.href = Boat.lc.href.slice(0,iq) + str.slice(0,-1);
 		Boat.schTimeOut = false;
 		setTimeout(function(){
 			Boat.schTimeOut = true;
@@ -164,8 +163,6 @@ var Dom = {
 	schFrm: $('#searchbar form'),
 	schSlct: $('#searchbar select'),
 	schInpt: $('#searchbar input'),
-	schNull: '<div style="text-align:center;"><span style="font-size:20px;color:#777">\
-			没找到 ╮(╯▽╰)╭</span></div>',
 	highSlct: $('#searchbar select[name=highschool]'),
 	dgreSclt: $('#searchbar select[name=degree]'),
 	gradSlct: $('#searchbar select[name=graduation]'),
@@ -180,10 +177,10 @@ var Dom = {
 	m_guys:'{{#list}}<li id="{{id}}">\
 			<span class="ord">{{order}}</span>\
 			<span class="name">{{name}}</span>\
-			<span class="higscl">{{high}}</span>\
-			<span class="grad">{{grad}}届</span>\
+			<span class="higscl">{{highschool}}</span>\
+			<span class="grad">{{graduation}}届</span>\
 			<span class="class">{{class}}班</span>\
-			<span class="maj">{{maj}}</span>\
+			<span class="maj">{{major}}</span>\
 			<span class="colge">{{college}}</span>\
 			<span class="degree">{{degree}}</span>\
 			<span class="contact" data-name="{{name}}" data-uid="{{id}}">联系Ta</span></li>{{/list}}\
