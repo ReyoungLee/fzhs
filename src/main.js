@@ -1,5 +1,5 @@
 require('jquery');
-require('TravelHogan');
+var tpl = require('./artTemplate.js');
 
 $(function(){
 	(window.location.hash.slice(1,2)*1) && Boat.navByUrl();
@@ -57,7 +57,7 @@ var Boat = {
 		var grad ='', year = new Date().getFullYear();
 		$.get(url.high).done(function(back){
 			back = back?back:false;
-			var html = Mustache.to_html(Dom.m_high,{list:back});
+			var html = tpl.compile(Dom.tpl_high)({list:back});
 			Dom.highSlct.append(html);
 			Boat.analysePara();
 		});
@@ -96,7 +96,7 @@ var Boat = {
 		}
 		$.post(url,form).done(function(back){
 			back = back?back:false;
-			var html = Mustache.to_html(Dom.m_guys,{list:back});
+			var html = tpl.compile(Dom.tpl_guys)({list:back});
 			Dom.guys.html(html);
 		});
 
@@ -109,9 +109,20 @@ var Boat = {
 		},1000);
 	},
 	gouda: function(){
-		var arg = {};
+		var arg = {
+			id: $(this).data('uid'),
+			content: $(this).siblings('textarea').val()
+		};
+		console.log(arg)
 		$.post('/home/gouda/send',arg).done(function (data){
-
+			var tip = ['没有找到联系方式，你的请求已经提交给系统',
+						'勾搭成功~\\(≧▽≦)/~',
+						'勾搭失败╮(╯▽╰)╭',
+						'系统故障了╮(╯▽╰)╭'];
+			if(data != null){
+				Dlg.hide();
+				alert(tip[data]);
+			}
 		});
 	}
 	
@@ -167,24 +178,24 @@ var Dom = {
 	dgreSclt: $('#searchbar select[name=degree]'),
 	gradSlct: $('#searchbar select[name=graduation]'),
 	guys: $('#result'),
-	m_high:'{{#list}}<option value="{{id}}">{{name}}</option>{{/list}}\
-			{{^list}}<option>获取数据失败</option>{{/list}}',
+	tpl_high:'{{each list as e}}<option value="{{e.id}}">{{e.name}}</option>{{/each}}\
+			{{if !list}}<option>获取数据失败</option>{{/if}}',
 	h_dgre:'<option value="3">专科</option>\
 			<option value="0">本科</option>\
 			<option value="1">硕士</option>\
 			<option value="2">博士</option>\
 			<option value="4">其他</option>',
-	m_guys:'{{#list}}<li id="{{id}}">\
-			<span class="ord">{{order}}</span>\
-			<span class="name">{{name}}</span>\
-			<span class="higscl">{{highschool}}</span>\
-			<span class="grad">{{graduation}}届</span>\
-			<span class="class">{{class}}班</span>\
-			<span class="maj">{{major}}</span>\
-			<span class="colge">{{college}}</span>\
-			<span class="degree">{{degree}}</span>\
-			<span class="contact" data-name="{{name}}" data-uid="{{id}}">联系Ta</span></li>{{/list}}\
-			{{^list}}<div style="text-align:center;">\
+	tpl_guys:'{{each list as e}}<li id="{{e.id}}">\
+			<span class="ord">{{e.order}}</span>\
+			<span class="name">{{e.name}}</span>\
+			<span class="higscl">{{e.highschool}}</span>\
+			<span class="grad">{{e.graduation}}届</span>\
+			<span class="class">{{e.class}}班</span>\
+			<span class="maj">{{e.major}}</span>\
+			<span class="colge">{{e.college}}</span>\
+			<span class="degree">{{["本科","硕士","博士","专科","其他"][e.degree]}}</span>\
+			<span class="contact" data-name="{{e.name}}" data-uid="{{e.id}}">联系</span></li>{{/each}}\
+			{{if !list}}<div style="text-align:center;">\
 			<span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span>\
-			</div>{{/list}}'
+			</div>{{/if}}'
 };
