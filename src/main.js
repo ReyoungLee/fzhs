@@ -112,13 +112,17 @@ var Boat = {
 		var arg = {
 			id: $(this).data('uid'),
 			content: $(this).siblings('textarea').val()
-		};
-		console.log(arg)
+		},
+		tip = ['没有找到联系方式，你的请求已经提交给系统',
+				'勾搭成功~\\(≧▽≦)/~',
+				'勾搭失败╮(╯▽╰)╭',
+				'系统故障了╮(╯▽╰)╭'];
+		if(arg.content.replace(/\s/g, '') == ''){
+			Dlg.alert();
+			return;
+		}
+		Dlg.ldg.show();
 		$.post('/home/gouda/send',arg).done(function (data){
-			var tip = ['没有找到联系方式，你的请求已经提交给系统',
-						'勾搭成功~\\(≧▽≦)/~',
-						'勾搭失败╮(╯▽╰)╭',
-						'系统故障了╮(╯▽╰)╭'];
 			if(data != null){
 				Dlg.hide();
 				alert(tip[data]);
@@ -132,6 +136,7 @@ var Dlg = {
 	exist: false,
 	wdw: $('<div id="dlg" style="top:-200px"></div>'),
 	msk: $('<div id="dlg-mask" style="display:none"></div>'),
+	ldg: $('<div class="sending"></div>'),
 	nm: undefined, 
 	uid: undefined,
 	show: function(){
@@ -147,6 +152,7 @@ var Dlg = {
 	hide: function(){
 		Dlg.wdw.css('top','-400px');
 		Dlg.msk.fadeOut(200);
+		Dlg.ldg.hide();
 		Dom.blur.removeClass('blur');
 	},
 	build: function(){
@@ -156,11 +162,18 @@ var Dlg = {
 					<button class="n">算了</button>');
 		Dlg.msk.click(Dlg.hide);
 		window.CH || Dlg.wdw.addClass('dlg-pls');
-		Dlg.wdw.append(cont);
+		Dlg.wdw.append(cont).append(Dlg.ldg);
 		Dom.bd.append(Dlg.wdw,Dlg.msk);
 		Dlg.nm = Dlg.wdw.find('span');
 		Dlg.uid = Dlg.wdw.find('.y');
 		Dlg.exist = true;
+	},
+	alert: function() {
+		var ta = Dlg.wdw.find('textarea');
+		ta.addClass('alert');
+		setTimeout(function() {
+			ta.removeClass('alert');
+		},555);
 	}
 };
 
