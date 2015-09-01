@@ -110,8 +110,8 @@ var Boat = {
 	},
 	gouda: function(){
 		var arg = {
-			id: $(this).data('uid'),
-			content: $(this).siblings('textarea').val()
+			id: this.dataset.uid,
+			content: Dom.gdCon.val()
 		},
 		tip = ['没有找到联系方式，你的请求已经提交给系统',
 				'勾搭成功~\\(≧▽≦)/~',
@@ -129,7 +129,6 @@ var Boat = {
 			}
 		});
 	}
-	
 };
 
 var Dlg = {
@@ -157,7 +156,7 @@ var Dlg = {
 	},
 	build: function(){
 		var cont = $('<h4>发送消息给 <span></span></h4>\
-					<textarea placeholder="请留下自己的联系方式"></textarea>\
+					<textarea placeholder="请留下自己的联系方式" id="gd-content"></textarea>\
 					<button class="y">勾搭Ta</button>\
 					<button class="n">算了</button>');
 		Dlg.msk.click(Dlg.hide);
@@ -167,9 +166,10 @@ var Dlg = {
 		Dlg.nm = Dlg.wdw.find('span');
 		Dlg.uid = Dlg.wdw.find('.y');
 		Dlg.exist = true;
+		Dom.gdCon = $('#gd-content');
 	},
 	alert: function() {
-		var ta = Dlg.wdw.find('textarea');
+		var ta = Dom.gdCon;
 		ta.addClass('alert');
 		setTimeout(function() {
 			ta.removeClass('alert');
