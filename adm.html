@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>admin</title>
+	<link rel="stylesheet" href="/fz/prd/main.css">
+</head>
+<body>
+	<div class="main adm" id="find">
+		<div id="searchbar">
+			<span>请注意至少输入姓名、专业、大学中的任一项</span>
+			<form>
+				<label>姓　名<input name="name" type="text"/></label>
+				<label>高　中<select name="highschool"><option value="">未选择</option></select></label>
+				<label>届　别<select name="graduation"><option value="">未选择</option></select></label>
+				<label>班　级<input name="class" type="text"/></label>
+				<label>专　业<input name="major" type="text"/></label>
+				<label>大　学<input name="college" type="text"/></label>
+				<label>学　历<select name="degree"><option value="">未选择</option></select></label>
+			</form>
+		<button>搜　索</button>
+		</div>
+		<ul id="result">
+		</ul>
+	</div>
+</body>
+<script src="/fz/prd/main.js"></script>
+</html>

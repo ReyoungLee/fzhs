@@ -5,6 +5,7 @@ $(function(){
 	(window.location.hash.slice(1,2)*1) && Boat.navByUrl();
 	Boat.preData();
 	Boat.bindEvent();
+	// Dlg.build();
 });
 window.CH = window.navigator.userAgent.indexOf('Chrome') > -1;
 var Boat = {

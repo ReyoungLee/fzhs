@@ -1,5 +1,5 @@
 html,body{ height: 100%; width: 100%; margin: 0;  }
-body{ /*background: url(http://portal.51fzhs.com/wp-content/uploads/2015/04/bg1.jpg) center;*/ background: url(/fz/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
+body{ /*background: url(//contacts.51fzhs.com/Public/img/bg1.jpg) center;*/ background: url(/fz/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
 body, button, select, input, textarea{ font-family: microsoft yahei;}
 input, select, textarea{ box-shadow: 0 0 2px #045 inset;}
 button{width: 130px; height: 24px; font-size: 15px; border-radius: 3px; box-shadow: 0 0 2px #023 inset; color: #245; text-align: center; cursor: pointer; border: none; background: none; outline: none; position: absolute; transition: background 0.2s}
@@ -14,6 +14,7 @@ button:hover{ background: #416fa8; color:#fff;}
 .blur{ -webkit-filter: blur(4px); }
 
 .main{ width: 970px; margin-left: -520px; padding: 0 50px 0 100px; min-height: 100%; display: none; background: rgba(255,255,255,.4); position: absolute; left: 50%; transition: top .2s cubic-bezier(0.12, 0.55, 0.56, 1); font-size: 15px;}
+.adm{ display: block; padding: 0 100px; margin-left: -585px; }
 #home{ display: block; background: none;}
 
 #searchbar{  margin-top: 80px; position: relative; padding: 10px 0;}
