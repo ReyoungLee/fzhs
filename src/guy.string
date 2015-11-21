@@ -1,0 +1,17 @@
+{{each list as e}}
+<li id="{{e.id}}">
+<span class="ord">{{e.order}}</span>
+<span class="name">{{e.name}}</span>
+<span class="higscl">{{e.highschool}}</span>
+<span class="grad">{{e.graduation}}届</span>
+<span class="class">{{e.class}}班</span>
+<span class="maj" title="{{e.major}}">{{e.major}}</span>
+<span class="colge">{{e.college}}</span>
+<span class="degree">{{["本科","硕士","博士","专科","其他"][e.degree]}}</span>
+<span class="contact" data-name="{{e.name}}" data-uid="{{e.id}}">联系</span></li>
+{{/each}}
+{{if !list}}
+<div style="text-align:center;">
+<span style="font-size:20px;color:#777">没找到 ╮(╯▽╰)╭</span>
+</div>
+{{/if}}

@@ -1,108 +1,358 @@
-html,body{ height: 100%; width: 100%; margin: 0;  }
-body{ /*background: url(//contacts.51fzhs.com/Public/img/bg1.jpg) center;*/ background: url(/fz/img/bg1.jpg) center fixed no-repeat; background-size: cover; background-color: #6491c5;}
-body, button, select, input, textarea{ font-family: microsoft yahei;}
-input, select, textarea{ box-shadow: 0 0 2px #045 inset;}
-button{width: 130px; height: 24px; font-size: 15px; border-radius: 3px; box-shadow: 0 0 2px #023 inset; color: #245; text-align: center; cursor: pointer; border: none; background: none; outline: none; position: absolute; transition: background 0.2s}
-button:hover{ background: #416fa8; color:#fff;}
-#logo{ width: 300px; height: 90px; background: url(/fz/img/logo.png) no-repeat; position: fixed; left: 50%; margin-left: -688px; z-index: 4;}
-#bdtop{ width: 100%; height: 6px; position: fixed; background: #2d64ae; z-index: 4;}
-#nav{ position: fixed; height: 100%; width: 40px; top: 0; left: 50%; margin-left: -565px; border-right: 6px #2d64ae solid; z-index: 3;}
-#nav>div{ height: 32px; margin: 20px 0; font-size: 16px; white-space: nowrap; background: #2d64ae; color: #fff; text-shadow:0 0 14px #000; position: relative; transition: .1s ease-out; cursor: pointer;}
-#nav>.crt{ text-shadow:0 0 10px #fff; font-size: 18px; }
-#nav a{ line-height: 30px; padding: 0 12px; position: absolute; z-index: 3; -webkit-user-select: none; color: inherit; text-decoration: none}
-#nav .tri{ width: 0; height: 0; position: absolute; top: 0; left: 100%; border-width: 16px; border-style: solid; border-color: transparent transparent transparent #2d64ae; }
-.blur{ -webkit-filter: blur(4px); }
+@charset "UTF-8";
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0; }
 
-.main{ width: 970px; margin-left: -520px; padding: 0 50px 0 100px; min-height: 100%; display: none; background: rgba(255,255,255,.4); position: absolute; left: 50%; transition: top .2s cubic-bezier(0.12, 0.55, 0.56, 1); font-size: 15px;}
-.adm{ display: block; padding: 0 100px; margin-left: -585px; }
-#home{ display: block; background: none;}
+body {
+  background: url(//contacts.51fzhs.com/Public/img/bg1.jpg) center fixed no-repeat;
+  background-size: cover;
+  background-color: #6491c5; }
 
-#searchbar{  margin-top: 80px; position: relative; padding: 10px 0;}
-#searchbar input, #searchbar select, #searchbar span{ font-size: 14px;}
-#searchbar span{ margin: 0 50px; font-style: italic; color: #999; transition: color .2s;}
-#searchbar .notice{ text-shadow: 0 0 3px #444; color: red}
-#searchbar label{ margin-left: 20px; display: inline-block; width: 198px; height: 40px; line-height: 40px; white-space: nowrap;}
-#searchbar label:nth-child(1),#searchbar label:nth-child(5){ margin-left: 50px}
-#searchbar input,
-#searchbar select{ border: none; margin: 10px; height: 24px; outline: none; background: none; position: relative; top: -1px;}
-#searchbar input{ padding: 0 5px; width: 120px; }
-#searchbar select{ width: 130px; padding-left: 4px;}
-#searchbar button{ bottom: 17px; right: 68px; }
-#searchbar,#result{ width: 100%; background: rgba(255,255,255,.3);}
-#result{ margin: 40px 0; list-style: none; font-size: 0; padding: 0}
-#result span{ display: inline-block; text-align: center; line-height: 36px; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
-#result .ord{ width: 5%;}
-#result .name{ width: 11%;}
-#result .higscl{ width: 13%;}
-#result .grad{ width: 6%;}
-#result .class{ width: 8%;}
-#result .maj{ width: 18%;}
-#result .colge{ width: 20%;}
-#result .degree{ width: 6%;}
-#result .contact{ width: 13%; cursor: pointer; text-decoration: underline;}
-#result li{ transition: background .2s;}
-#result li:nth-child(even){ background: rgba(255,255,255,.4)}
-#result li:hover{ background: rgba(45,100,174,.6); color: #fff}
+body, button, select, input, textarea {
+  font-family: microsoft yahei; }
 
-#dlg{ width: 400px; height: 200px; left: 50%; margin-left: -180px; z-index: 9; overflow: hidden; background: rgba(244,244,255,.4); box-shadow: 0 0 10px #444;  border-radius: 5px; position: absolute; transition: top ease-out .15s;}
-#dlg h4{ margin: 10px; font-weight: 100}
-#dlg textarea{ width: 340px; height: 80px; padding: 10px; margin: 0 20px; resize: none; border: none; outline: none; background: rgba(255,255,255,.4); transition: all .3s;}
-#dlg .alert{ box-shadow: 0 0 10px red inset;}
-#dlg textarea::-webkit-input-placeholder{ color: #777; font-size: 14px;}
-#dlg button{ bottom: 20px; right: 20px; box-shadow: 0 0 2px #000 inset; }
-#dlg .y{ right: 170px;}
-#dlg-mask{ width: 100%; height: 100%; position: fixed; z-index: 8; background: rgba(0,0,0,.3)}
-.dlg-pls{ background: rgba(244,244,255,.7)!important;}
-#dlg .sending{ background: url(/fz/img/loading.gif) center no-repeat; background-color: rgba(222,222,222,.7); display: none; width: 100%; height: 100%; position: absolute; top: 0; left: 0; text-align: center; line-height: 250px;}
-#dlg .sending::after{ content: '努力勾搭ing，稍等一下下'}
+input, select, textarea {
+  box-shadow: 0 0 2px #045 inset; }
 
+button {
+  width: 130px;
+  height: 24px;
+  font-size: 15px;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #023 inset;
+  color: #245;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  position: absolute;
+  transition: background 0.2s; }
+  button:hover {
+    background: #416fa8;
+    color: #fff; }
 
+#logo {
+  width: 300px;
+  height: 90px;
+  background: url(//contacts.51fzhs.com/Public/img/logo.png) no-repeat;
+  position: fixed;
+  left: 50%;
+  margin-left: -688px;
+  z-index: 4; }
 
+#bdtop {
+  width: 100%;
+  height: 6px;
+  position: fixed;
+  background: #2d64ae;
+  z-index: 4; }
 
+#nav {
+  position: fixed;
+  height: 100%;
+  width: 40px;
+  top: 0;
+  left: 50%;
+  margin-left: -565px;
+  border-right: 6px #2d64ae solid;
+  z-index: 3; }
+  #nav > div {
+    height: 32px;
+    margin: 20px 0;
+    font-size: 16px;
+    white-space: nowrap;
+    background: #2d64ae;
+    color: #fff;
+    text-shadow: 0 0 14px #000;
+    position: relative;
+    transition: .1s ease-out;
+    cursor: pointer; }
+  #nav > .crt {
+    text-shadow: 0 0 10px #fff;
+    font-size: 18px; }
+  #nav a {
+    line-height: 30px;
+    padding: 0 12px;
+    position: absolute;
+    z-index: 3;
+    -webkit-user-select: none;
+    color: inherit;
+    text-decoration: none; }
+  #nav .tri {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    border-width: 16px;
+    border-style: solid;
+    border-color: transparent transparent transparent #2d64ae; }
 
+.blur {
+  -webkit-filter: blur(4px); }
 
+.main {
+  width: 970px;
+  margin-left: -520px;
+  padding: 0 50px 0 100px;
+  min-height: 100%;
+  display: none;
+  background: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  left: 50%;
+  transition: top 0.2s cubic-bezier(0.12, 0.55, 0.56, 1);
+  font-size: 15px; }
 
+.adm {
+  display: block;
+  padding: 0 100px;
+  margin-left: -585px; }
 
+#home {
+  display: block;
+  background: none; }
 
+#searchbar {
+  margin-top: 80px;
+  position: relative;
+  padding: 10px 0; }
+  #searchbar input, #searchbar select, #searchbar span {
+    font-size: 14px; }
+  #searchbar span {
+    margin: 0 50px;
+    font-style: italic;
+    color: #999;
+    transition: color .2s; }
+  #searchbar .notice {
+    text-shadow: 0 0 3px #444;
+    color: red; }
+  #searchbar label {
+    margin-left: 20px;
+    display: inline-block;
+    width: 198px;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap; }
+    #searchbar label:nth-child(1), #searchbar label:nth-child(5) {
+      margin-left: 50px; }
+  #searchbar input, #searchbar select {
+    border: none;
+    margin: 10px;
+    height: 24px;
+    outline: none;
+    background: none;
+    position: relative;
+    top: -1px; }
+  #searchbar input {
+    padding: 0 5px;
+    width: 120px; }
+  #searchbar select {
+    width: 130px;
+    padding-left: 4px; }
+  #searchbar button {
+    bottom: 17px;
+    right: 68px; }
 
+#searchbar, #result {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.3); }
 
+#result {
+  margin: 40px 0;
+  list-style: none;
+  font-size: 0;
+  padding: 0;
+  transition: max-height .5s ease-out; }
+  #result span {
+    display: inline-block;
+    text-align: center;
+    line-height: 36px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; }
+  #result .ord {
+    width: 5%; }
+  #result .name {
+    width: 11%; }
+  #result .higscl {
+    width: 13%; }
+  #result .grad {
+    width: 6%; }
+  #result .class {
+    width: 8%; }
+  #result .maj {
+    width: 18%; }
+  #result .colge {
+    width: 20%; }
+  #result .degree {
+    width: 6%; }
+  #result .contact {
+    width: 13%;
+    cursor: pointer;
+    text-decoration: underline; }
+  #result li {
+    transition: background .2s;
+    -webkit-transition: background .2s; }
+    #result li:nth-child(even) {
+      background: rgba(255, 255, 255, 0.4); }
+    #result li:hover {
+      background: rgba(45, 100, 174, 0.6);
+      color: #fff; }
 
+#dlg {
+  width: 400px;
+  height: 200px;
+  left: 50%;
+  margin-left: -180px;
+  z-index: 9;
+  overflow: hidden;
+  background: rgba(244, 244, 255, 0.4);
+  box-shadow: 0 0 10px #444;
+  border-radius: 5px;
+  position: fixed;
+  transition: top ease-out .15s; }
+  #dlg h4 {
+    margin: 10px;
+    font-weight: 100; }
+  #dlg textarea {
+    width: 340px;
+    height: 80px;
+    padding: 10px;
+    margin: 0 20px;
+    resize: none;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.4);
+    transition: all .3s; }
+    #dlg textarea::-webkit-input-placeholder {
+      color: #777;
+      font-size: 14px; }
+  #dlg .alert {
+    box-shadow: 0 0 10px red inset; }
+  #dlg button {
+    bottom: 20px;
+    right: 20px;
+    box-shadow: 0 0 2px #000 inset; }
+  #dlg .y {
+    right: 170px; }
+  #dlg .sending {
+    background: url(//contacts.51fzhs.com/Public/img/loading.gif) center no-repeat;
+    background-color: rgba(222, 222, 222, 0.7);
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    line-height: 250px; }
+    #dlg .sending::after {
+      content: '努力勾搭ing……稍等一下下'; }
 
+#dlg-mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 8;
+  background: rgba(0, 0, 0, 0.3); }
 
+.dlg-pls {
+  background: rgba(244, 244, 255, 0.7) !important; }
 
-#nav>div:nth-child(6){
-			transform: perspective(100px) rotateY(-15deg) rotate(13deg);
-	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(13deg);
-	width: 260%;}
-#nav>div:nth-child(6):hover{
-			transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1);
-	-webkit-transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1);}
-#nav>div:nth-child(5){
-			transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px);
-	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px); width: 170%;}
-#nav>div:nth-child(5):hover{
-			transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1);
-	-webkit-transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1);}
-#nav>div:nth-child(4){
-			transform: perspective(100px) rotateY(10deg) rotate(-2deg);
-	-webkit-transform: perspective(100px) rotateY(10deg) rotate(-2deg); width: 200%;}
-#nav>div:nth-child(4):hover{ transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1);
-					 -webkit-transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1);}
-#nav>div:nth-child(3){ 
-			transform: perspective(100px) rotateY(-10deg); width: 300%;
-	-webkit-transform: perspective(100px) rotateY(-10deg); width: 300%; margin-left: -10px;}
-#nav>div:nth-child(3):hover{
-			transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1);
-	-webkit-transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1);}
-#nav>div:nth-child(2){
-			transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px);
-	-webkit-transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px); width: 220%;}
-#nav>div:nth-child(2):hover{
-			transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1);
-	-webkit-transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1);}
-#nav>div:nth-child(1){
-			transform: perspective(100px) rotateY(10deg) rotate(4deg); width: 190%;
-	-webkit-transform: perspective(100px) rotateY(10deg) rotate(4deg); width: 190%; margin-top: 100px}
-#nav>div:nth-child(1):hover{
-			transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1);
-	-webkit-transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1);}
+#loading {
+  display: none;
+  text-align: center;
+  margin: 40px auto -20px auto;
+  position: absolute;
+  top: 170px;
+  left: 50%;
+  margin-left: -70px; }
+  #loading span {
+    border-radius: 50%;
+    display: inline-block;
+    background: #2d64ae;
+    width: 20px;
+    height: 20px;
+    margin: 0 4px;
+    -webkit-animation: loader 0.8s linear infinite alternate;
+    animation: loader 0.8s linear infinite alternate; }
+    #loading span:nth-child(1) {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+      opacity: 0.6; }
+    #loading span:nth-child(2) {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+      opacity: 0.8; }
+    #loading span:nth-child(3) {
+      -webkit-animation-delay: -0.27s;
+      animation-delay: -0.26666s;
+      opacity: 1; }
+    #loading span:nth-child(4) {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+      opacity: 0.8; }
+    #loading span:nth-child(5) {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+      opacity: 0.6; }
+
+@keyframes loader {
+  from {
+    transform: scale(0, 0); }
+  to {
+    transform: scale(1, 1); } }
+@-webkit-keyframes loader {
+  from {
+    -webkit-transform: scale(0, 0); }
+  to {
+    -webkit-transform: scale(1, 1); } }
+#nav > div:nth-child(6) {
+  transform: perspective(100px) rotateY(-15deg) rotate(13deg);
+  -webkit-transform: perspective(100px) rotateY(-15deg) rotate(13deg);
+  width: 260%; }
+  #nav > div:nth-child(6):hover {
+    transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1);
+    -webkit-transform: perspective(60px) rotateY(-7deg) rotate(9deg) scale(1.1); }
+#nav > div:nth-child(5) {
+  transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px);
+  -webkit-transform: perspective(100px) rotateY(-15deg) rotate(-7deg) translate(20px);
+  width: 170%; }
+  #nav > div:nth-child(5):hover {
+    transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1);
+    -webkit-transform: perspective(100px) rotateY(-15deg) rotate(-2deg) translate(20px) scale(1.1); }
+#nav > div:nth-child(4) {
+  transform: perspective(100px) rotateY(10deg) rotate(-2deg);
+  -webkit-transform: perspective(100px) rotateY(10deg) rotate(-2deg);
+  width: 200%; }
+  #nav > div:nth-child(4):hover {
+    transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1);
+    -webkit-transform: perspective(100px) rotateY(10deg) rotate(-4deg) scale(1.1); }
+#nav > div:nth-child(3) {
+  transform: perspective(100px) rotateY(-10deg);
+  width: 300%;
+  -webkit-transform: perspective(100px) rotateY(-10deg);
+  margin-left: -10px; }
+  #nav > div:nth-child(3):hover {
+    transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1);
+    -webkit-transform: perspective(100px) rotateY(-10deg) rotate(2deg) scale(1.1); }
+#nav > div:nth-child(2) {
+  transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px);
+  -webkit-transform: perspective(100px) rotateY(20deg) rotate(-7deg) translate(20px);
+  width: 220%; }
+  #nav > div:nth-child(2):hover {
+    transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1);
+    -webkit-transform: perspective(100px) rotateY(20deg) rotate(-9deg) translate(20px) scale(1.1); }
+#nav > div:nth-child(1) {
+  transform: perspective(100px) rotateY(10deg) rotate(4deg);
+  -webkit-transform: perspective(100px) rotateY(10deg) rotate(4deg);
+  width: 190%;
+  margin-top: 100px; }
+  #nav > div:nth-child(1):hover {
+    transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1);
+    -webkit-transform: perspective(100px) rotateY(10deg) rotate(3deg) scale(1.1); }
+
+/*# sourceMappingURL=main.css.map */
