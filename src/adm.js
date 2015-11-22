@@ -1,6 +1,6 @@
 require('jquery');
 var tpl = require('./artTemplate.js');
-var tpl_guy = require('./guy.string');
+var tpl_guy = require('./guy_adm.string');
 
 $(function(){
 	(window.location.hash.slice(1,2)*1) && Boat.navByUrl();
@@ -17,13 +17,12 @@ var Boat = {
 		var _t = this;
 		window.onhashchange = _t.navByUrl.bind(this);
 		Dom.schBtn.click(_t.doSearch.bind(this));
+		Dom.addBtn.click(_t.addGuy.bind(this));
 		Dom.guys.on('click','.contact',function(){
 			dlg.show(this);
 		});
 		Dom.bd.on('click','#dlg .n',function(){
 			dlg.hide();
-		}).on('click','#dlg .y',function(){
-			_t.gouda(this);
 		});
 	},
 	navByUrl: function(){
@@ -36,9 +35,8 @@ var Boat = {
 		$target.css('top','-100%').show(0).css('top','0');
 	},
 	analysePara: function(){
-		var para = this.lc.hash.slice(3),
-			nav = this.lc.hash.slice(1,2);
-		if(nav != 1 || !para){
+		var para = this.lc.hash.slice(3);
+		if(!para){
 			return;
 		}
 		var arr = para.split('&'),form = {};
@@ -77,18 +75,18 @@ var Boat = {
 		Dom.gradSlct.append(grad);
 		Dom.dgreSclt.append(Dom.h_dgre);
 	},
-	checkForm: function(f){
-		if(f.name || f.major || f.college){
-			return true;
-		}else{
-			Dom.schTip.addClass('notice');
-			Dom.schBtn.text('请检查输入');
-			setTimeout(function(){
-				Dom.schTip.removeClass('notice');
-				Dom.schBtn.text('搜　索');
-			},600);
-		}
-	},
+	// checkForm: function(f){
+	// 	if(f.name || f.major || f.college){
+	// 		return true;
+	// 	}else{
+	// 		Dom.schTip.addClass('notice');
+	// 		Dom.schBtn.text('请检查输入');
+	// 		setTimeout(function(){
+	// 			Dom.schTip.removeClass('notice');
+	// 			Dom.schBtn.text('搜　索');
+	// 		},600);
+	// 	}
+	// },
 	doSearch: function(e){
 		e && e.preventDefault();
 		var url = '/home/search/specific';
@@ -102,7 +100,7 @@ var Boat = {
 				str += arr[i].name + '=' + v + '&';
 			}
 		}
-		if(!this.schTimeOut || !this.checkForm(form)){
+		if(!this.schTimeOut){
 			return;
 		}
 		Dom.loading.fadeIn(111);
@@ -125,27 +123,8 @@ var Boat = {
 			Boat.schTimeOut = true;
 		},1000);
 	},
-	gouda: function(el){
-		var arg = {
-			id: el.dataset.uid,
-			content: Dom.gdCon.val()
-		},
-		tip = ['没有找到联系方式，你的请求已经提交给系统',
-				'勾搭成功~\\(≧▽≦)/~',
-				'勾搭失败╮(╯▽╰)╭',
-				'系统故障了╮(╯▽╰)╭',
-				'一天只能勾搭30次。。。你的机会用完了',
-				'一分钟只能勾搭一次~不要急',
-				'一天只能勾搭同一个人3次~'];
-		if(arg.content.replace(/\s/g, '') == ''){
-			dlg.alert();
-			return;
-		}
-		dlg.ldg.show();
-		$.post('/home/gouda/send',arg).done(function (data){
-			dlg.hide();
-			alert(data? tip[data] : '嗷……服务器抽了');
-		});
+	addGuy: function (e) {
+		e && e.preventDefault();
 	}
 };
 
@@ -200,7 +179,8 @@ var Dom = {
 	main: $('.main'),
 	nav: $('#nav>div'),
 	blur: $('.main,#nav,#logo'),
-	schBtn: $('#searchbar button'),
+	schBtn: $('#search-btn'),
+	addBtn: $('#add-btn'),
 	schTip: $('#searchbar span'),
 	schFrm: $('#searchbar form'),
 	schSlct: $('#searchbar select'),

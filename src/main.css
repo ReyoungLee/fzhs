@@ -16,7 +16,7 @@ input, select, textarea {
   box-shadow: 0 0 2px #045 inset; }
 
 button {
-  width: 130px;
+  width: 140px;
   height: 24px;
   font-size: 15px;
   border-radius: 3px;
@@ -27,7 +27,6 @@ button {
   border: none;
   background: none;
   outline: none;
-  position: absolute;
   transition: background 0.2s; }
   button:hover {
     background: #416fa8;
@@ -104,11 +103,13 @@ button {
   left: 50%;
   transition: top 0.2s cubic-bezier(0.12, 0.55, 0.56, 1);
   font-size: 15px; }
-
-.adm {
-  display: block;
-  padding: 0 100px;
-  margin-left: -585px; }
+  .main.adm {
+    display: block;
+    padding: 0 90px;
+    margin: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; }
 
 #home {
   display: block;
@@ -117,7 +118,8 @@ button {
 #searchbar {
   margin-top: 80px;
   position: relative;
-  padding: 10px 0; }
+  padding: 10px 20px;
+  box-sizing: border-box; }
   #searchbar input, #searchbar select, #searchbar span {
     font-size: 14px; }
   #searchbar span {
@@ -129,14 +131,12 @@ button {
     text-shadow: 0 0 3px #444;
     color: red; }
   #searchbar label {
-    margin-left: 20px;
     display: inline-block;
-    width: 198px;
+    padding-left: 15px;
+    width: 210px;
     height: 40px;
     line-height: 40px;
     white-space: nowrap; }
-    #searchbar label:nth-child(1), #searchbar label:nth-child(5) {
-      margin-left: 50px; }
   #searchbar input, #searchbar select {
     border: none;
     margin: 10px;
@@ -147,16 +147,16 @@ button {
     top: -1px; }
   #searchbar input {
     padding: 0 5px;
-    width: 120px; }
+    width: 130px; }
   #searchbar select {
-    width: 130px;
+    width: 140px;
     padding-left: 4px; }
   #searchbar button {
-    bottom: 17px;
-    right: 68px; }
+    margin: 8px 15px 8px 70px; }
 
 #searchbar, #result {
   width: 100%;
+  min-width: 960px;
   background: rgba(255, 255, 255, 0.3); }
 
 #result {
@@ -190,7 +190,13 @@ button {
   #result .degree {
     width: 6%; }
   #result .contact {
-    width: 13%;
+    width: 13%; }
+  #result .alter {
+    width: 6%;
+    text-align: right; }
+  #result .delete {
+    width: 7%; }
+  #result .operate {
     cursor: pointer;
     text-decoration: underline; }
   #result li {
@@ -233,11 +239,12 @@ button {
   #dlg .alert {
     box-shadow: 0 0 10px red inset; }
   #dlg button {
+    position: absolute;
     bottom: 20px;
     right: 20px;
     box-shadow: 0 0 2px #000 inset; }
   #dlg .y {
-    right: 170px; }
+    right: 180px; }
   #dlg .sending {
     background: url(//www.51fzhs.com/Public/img/loading.gif) center no-repeat;
     background-color: rgba(222, 222, 222, 0.7);

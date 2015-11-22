@@ -8,7 +8,9 @@
 <span class="maj" title="{{e.major}}">{{e.major}}</span>
 <span class="colge">{{e.college}}</span>
 <span class="degree">{{["本科","硕士","博士","专科","其他"][e.degree]}}</span>
-<span class="contact opreate" data-name="{{e.name}}" data-uid="{{e.id}}">联系</span></li>
+<span class="alter operate" data-name="{{e.name}}" data-uid="{{e.id}}">修改</span>
+<span class="delete operate" data-name="{{e.name}}" data-uid="{{e.id}}">删除</span>
+</li>
 {{/each}}
 {{if !list}}
 <div style="text-align:center;">
