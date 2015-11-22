@@ -14,13 +14,20 @@ var Boat = {
 	schTimeOut: true,// a client can not post search requests too frequently
 	lc: window.location,
 	bindEvent: function(){
-		window.onhashchange = Boat.navByUrl;
-		Dom.schBtn.click(Boat.doSearch);
-		Dom.guys.on('click','.contact',dlg.show);
-		Dom.bd.on('click','#dlg .n',dlg.hide).on('click','#dlg .y',Boat.gouda);
+		var _t = this;
+		window.onhashchange = _t.navByUrl.bind(this);
+		Dom.schBtn.click(_t.doSearch.bind(this));
+		Dom.guys.on('click','.contact',function(){
+			dlg.show(this);
+		});
+		Dom.bd.on('click','#dlg .n',function(){
+			dlg.hide();
+		}).on('click','#dlg .y',function(){
+			_t.gouda(this);
+		});
 	},
 	navByUrl: function(){
-		var nav = Boat.lc.hash.slice(1,2);
+		var nav = this.lc.hash.slice(1,2);
 		var _this = Dom.nav.eq(nav);
 		var $target = Dom.main.eq(nav);
 		var $others = Dom.main.not($target);
@@ -29,8 +36,8 @@ var Boat = {
 		$target.css('top','-100%').show(0).css('top','0');
 	},
 	analysePara: function(){
-		var para = Boat.lc.hash.slice(3),
-			nav = Boat.lc.hash.slice(1,2);
+		var para = this.lc.hash.slice(3),
+			nav = this.lc.hash.slice(1,2);
 		if(nav != 1 || !para){
 			return;
 		}
@@ -38,7 +45,7 @@ var Boat = {
 		var temp;
 		for(var i = arr.length; i--;){
 			temp = arr[i].split('=');
-			form[temp[0]] = temp[1];
+			form[temp[0]] = decodeURIComponent(temp[1]);
 		}
 		Dom.schInpt.each(function(){
 			$(this).val(form[this.name]);
@@ -50,18 +57,19 @@ var Boat = {
 			}
 			$(this).find('option[value='+name+']').attr('selected',true);
 		});
-		Boat.doSearch();
+		this.doSearch();
 	},
 	preData: function(){
+		var _t = this;
 		var url = {
 			high : '/home/query/allhighschools'
 		};
 		var grad ='', year = new Date().getFullYear();
-		$.get(url.high).done(function(back){
+		$.post(url.high).done(function(back){
 			back = back?back:false;
 			var html = tpl.compile(Dom.tpl_high)({list:back});
 			Dom.highSlct.append(html);
-			Boat.analysePara();
+			_t.analysePara();
 		});
 		for(year; year > 1945; year--){
 			grad += '<option value ='+year+'>'+year+'</option>';
@@ -83,7 +91,7 @@ var Boat = {
 	},
 	doSearch: function(){
 		var url = '/home/search/specific';
-		var iq = Boat.lc.href.indexOf('?');
+		var iq = this.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';
 		var form = {};
 		for(var i = arr.length;i--;){
@@ -93,7 +101,7 @@ var Boat = {
 				str += arr[i].name + '=' + v + '&';
 			}
 		}
-		if(!Boat.schTimeOut || !Boat.checkForm(form)){
+		if(!this.schTimeOut || !this.checkForm(form)){
 			return;
 		}
 
@@ -109,17 +117,17 @@ var Boat = {
 			});
 		});
 
-		iq == -1 && (iq = Boat.lc.href.length);
+		iq == -1 && (iq = this.lc.href.length);
 
-		Boat.lc.href = Boat.lc.href.slice(0,iq) + str.slice(0,-1);
-		Boat.schTimeOut = false;
+		this.lc.href = this.lc.href.slice(0,iq) + str.slice(0,-1);
+		this.schTimeOut = false;
 		setTimeout(function(){
 			Boat.schTimeOut = true;
 		},1000);
 	},
-	gouda: function(){
+	gouda: function(el){
 		var arg = {
-			id: this.dataset.uid,
+			id: el.dataset.uid,
 			content: Dom.gdCon.val()
 		},
 		tip = ['没有找到联系方式，你的请求已经提交给系统',
@@ -134,11 +142,9 @@ var Boat = {
 			return;
 		}
 		dlg.ldg.show();
-		$.post('/home/gouda/sendd',arg).done(function (data){
-			if(data != null){
-				dlg.hide();
-				alert(tip[data]);
-			}
+		$.post('/home/gouda/send',arg).done(function (data){
+			dlg.hide();
+			alert(data? tip[data] : '嗷……服务器抽了');
 		});
 	}
 };
@@ -150,20 +156,20 @@ var dlg = {
 	ldg: $('<div class="sending"></div>'),
 	nm: undefined, 
 	uid: undefined,
-	show: function(){
-		dlg.exist || dlg.build();
-		dlg.nm.html($(this).data('name'));
-		dlg.uid.attr('data-uid',$(this).data('uid'));
-		dlg.msk.fadeIn(200);
+	show: function(el){
+		this.exist || this.build();
+		this.nm.html($(this).data('name'));
+		this.uid.attr('data-uid',$(el).data('uid'));
+		this.msk.fadeIn(200);
 		Dom.blur.addClass('blur');
 		setTimeout(function(){
-			dlg.wdw.css('top','200px');
-		},1);
+			this.wdw.css('top','200px');
+		}.bind(this),1);
 	},
 	hide: function(){
-		dlg.wdw.css('top','-400px');
-		dlg.msk.fadeOut(200);
-		dlg.ldg.hide();
+		this.wdw.css('top','-400px');
+		this.msk.fadeOut(200);
+		this.ldg.hide();
 		Dom.blur.removeClass('blur');
 	},
 	build: function(){
@@ -171,13 +177,13 @@ var dlg = {
 <textarea placeholder="请留下自己的联系方式" id="gd-content"></textarea>\
 <button class="y">勾搭Ta</button>\
 <button class="n">算了</button>');
-		dlg.msk.click(dlg.hide);
-		window.CH || dlg.wdw.addClass('dlg-pls');
-		dlg.wdw.append(cont).append(dlg.ldg);
-		Dom.bd.append(dlg.wdw,dlg.msk);
-		dlg.nm = dlg.wdw.find('span');
-		dlg.uid = dlg.wdw.find('.y');
-		dlg.exist = true;
+		this.msk.click(this.hide.bind(this));
+		window.CH || this.wdw.addClass('dlg-pls');
+		this.wdw.append(cont).append(this.ldg);
+		Dom.bd.append(this.wdw,this.msk);
+		this.nm = this.wdw.find('span');
+		this.uid = this.wdw.find('.y');
+		this.exist = true;
 		Dom.gdCon = $('#gd-content');
 	},
 	alert: function() {

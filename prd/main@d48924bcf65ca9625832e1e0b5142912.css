@@ -1,10 +1,10 @@
 @charset "UTF-8";html,body{height:100%;width:100%;margin:0}
-body{background:url(//contacts.51fzhs.com/Public/img/bg1.jpg) center fixed no-repeat;background-size:cover;background-color:#6491c5}
+body{background:url(//www.51fzhs.com/Public/img/bg1.jpg) center fixed no-repeat;background-size:cover;background-color:#6491c5}
 body,button,select,input,textarea{font-family:microsoft yahei}
 input,select,textarea{box-shadow:0 0 2px #045 inset}
 button{width:130px;height:24px;font-size:15px;border-radius:3px;box-shadow:0 0 2px #023 inset;color:#245;text-align:center;cursor:pointer;border:0;background:0;outline:0;position:absolute;transition:background .2s}
 button:hover{background:#416fa8;color:#fff}
-#logo{width:300px;height:90px;background:url(//contacts.51fzhs.com/Public/img/logo.png) no-repeat;position:fixed;left:50%;margin-left:-688px;z-index:4}
+#logo{width:300px;height:90px;background:url(//www.51fzhs.com/Public/img/logo.png) no-repeat;position:fixed;left:50%;margin-left:-688px;z-index:4}
 #bdtop{width:100%;height:6px;position:fixed;background:#2d64ae;z-index:4}
 #nav{position:fixed;height:100%;width:40px;top:0;left:50%;margin-left:-565px;border-right:6px #2d64ae solid;z-index:3}
 #nav>div{height:32px;margin:20px 0;font-size:16px;white-space:nowrap;background:#2d64ae;color:#fff;text-shadow:0 0 14px #000;position:relative;transition:.1s ease-out;cursor:pointer}
@@ -47,7 +47,7 @@ button:hover{background:#416fa8;color:#fff}
 #dlg .alert{box-shadow:0 0 10px red inset}
 #dlg button{bottom:20px;right:20px;box-shadow:0 0 2px #000 inset}
 #dlg .y{right:170px}
-#dlg .sending{background:url(//contacts.51fzhs.com/Public/img/loading.gif) center no-repeat;background-color:rgba(222,222,222,0.7);display:none;width:100%;height:100%;position:absolute;top:0;left:0;text-align:center;line-height:250px}
+#dlg .sending{background:url(//www.51fzhs.com/Public/img/loading.gif) center no-repeat;background-color:rgba(222,222,222,0.7);display:none;width:100%;height:100%;position:absolute;top:0;left:0;text-align:center;line-height:250px}
 #dlg .sending::after{content:'努力勾搭ing……稍等一下下'}
 #dlg-mask{width:100%;height:100%;position:fixed;z-index:8;background:rgba(0,0,0,0.3)}
 .dlg-pls{background:rgba(244,244,255,0.7)!important}
