@@ -16,7 +16,10 @@ var Boat = {
 	bindEvent: function(){
 		var _t = this;
 		window.onhashchange = _t.navByUrl.bind(this);
-		Dom.schBtn.click(_t.doSearch.bind(this));
+		Dom.schFrm.on('submit', function () {
+			_t.doSearch();
+			return false;
+		});
 		Dom.guys.on('click','.contact',function(){
 			dlg.show(this);
 		});
@@ -90,7 +93,6 @@ var Boat = {
 		}
 	},
 	doSearch: function(e){
-		e && e.preventDefault();
 		var url = '/home/search/specific';
 		var iq = this.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';

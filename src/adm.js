@@ -16,7 +16,10 @@ var Boat = {
 	bindEvent: function(){
 		var _t = this;
 		window.onhashchange = _t.navByUrl.bind(this);
-		Dom.schBtn.click(_t.doSearch.bind(this));
+		Dom.schFrm.on('submit', function () {
+			_t.doSearch();
+			return false;
+		});
 		Dom.addBtn.click(_t.addGuy.bind(this));
 		Dom.guys.on('click','.contact',function(){
 			dlg.show(this);
@@ -87,8 +90,7 @@ var Boat = {
 	// 		},600);
 	// 	}
 	// },
-	doSearch: function(e){
-		e && e.preventDefault();
+	doSearch: function(){
 		var url = '/home/search/specific';
 		var iq = this.lc.href.indexOf('?');
 		var arr = Dom.schFrm.serializeArray(), str = '?';
